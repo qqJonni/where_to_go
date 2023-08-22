@@ -39,40 +39,11 @@
       width: 100px;
     }
   </style>
-  <script id="places-geojson" type="application/json">
-    {
-      "type": "FeatureCollection",
-      "features": [
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [37.62, 55.793676]
-          },
-          "properties": {
-            "title": "«Легенды Москвы",
-            "placeId": "moscow_legends",
-            "detailsUrl": "{% static './places/moscow_legends.json' %}"
-          }
-        },
-        {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [37.64, 55.753676]
-          },
-          "properties": {
-            "title": "Крыши24.рф",
-            "placeId": "roofs24",
-            "detailsUrl": "{% static './places/roofs24.json' %}"
-          }
-        }
-      ]
-    }
-  </script>
+
+    {{ places_posts|json_script:"places-geojson" }}
 
   <script id="app-template" type="text/template">
-    <div v-bind:class="{'sidebar-content': 1, 'bg-white': selectedPlace, 'bg-secondary': !selectedPlace}">
+    <div v-bind:class="{% verbatim %}{'sidebar-content': 1, 'bg-white': selectedPlace, 'bg-secondary': !selectedPlace}{% endverbatim %}">
       <div v-if="promptVisible" class="d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
         <img class="d-block select-place-prompt mb-4" src="{% static 'hand-pointer-regular.svg' %}" alt="Select place">
         <h4>Выберите место на карте</h4>
@@ -88,20 +59,19 @@
 
         <img v-if="mainPhotoSrc" v-bind:src="mainPhotoSrc" class="d-block shadow mb-3 rounded" v-bind:alt="selectedPlace.title">
 
-          <div v-html="'<h5>' + selectedPlace.title + '</h5>'"></div>
-{#        <h5 class="mb-3">{{ selectedPlace.title }}</h5>#}
-        <div v-html="selectedPlace.short_description"></div>
-{#        <p>{{ selectedPlace.short_description }}</p>#}
+        <h5 class="mb-3">{% verbatim %}{{ selectedPlace.title }}{% endverbatim %}</h5>
+
+        <p>{% verbatim %}{{ selectedPlace.short_description }}{% endverbatim %}</p>
 
         <div id="place-photos" class="carousel slide mb-3 shadow" data-ride="carousel" data-interval="5000">
           <ol class="carousel-indicators">
             <template v-for="(img, index) in carouselImgs" :key="img">
-              <li v-on:click="handlePhotosClick(index)" v-bind:class="{active: index==0}"></li>
+              <li v-on:click="handlePhotosClick(index)" v-bind:class="{% verbatim %}{active: index==0}{% endverbatim %}"></li>
             </template>
           </ol>
           <div class="carousel-inner">
             <template v-for="(img, index) in carouselImgs" :key="img">
-              <div v-bind:class="{'carousel-item bg-light': 1, active: index==0}">
+              <div v-bind:class="{% verbatim %}{'carousel-item bg-light': 1, active: index==0}{% endverbatim %}">
                 <img v-bind:src="img" class="d-block w-100" v-bind:alt="selectedPlace.title">
               </div>
             </template>

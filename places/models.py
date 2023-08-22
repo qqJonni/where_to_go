@@ -1,19 +1,40 @@
 from django.db import models
+from django.utils.safestring import mark_safe
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class PlaceName(models.Model):
-    title = models.CharField(max_length=128, unique=True)
-    description_short = models.TextField(null=True, blank=True)
-    description_long = models.TextField(null=True, blank=True)
-    coordinates = models.TextField(null=True, blank=True)
+    title = models.CharField('Заголовок', max_length=200)
+    description_short = models.TextField('Короткое описание')
+    description_long = models.TextField(verbose_name='Описание', blank=True, null=True)
+    lat = models.FloatField(verbose_name="Широта")
+    lon = models.FloatField(verbose_name="Долгота")
+    point_lon = models.FloatField(verbose_name="Долгота точки", blank=True, null=True)
+    point_lat = models.FloatField(verbose_name="Широта точки", blank=True, null=True)
+    slug = models.SlugField('Название в виде url', max_length=200, blank=True, null=True)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = 'Пост'
+        verbose_name_plural = 'Посты'
 
 
 class Image(models.Model):
-    title = models.CharField(max_length=128, unique=True)
-    imgs = models.ImageField(upload_to='images/', null=True, blank=True)
+    numb = models.IntegerField(verbose_name="Порядковый номер:")
+    title = models.ForeignKey(PlaceName, on_delete=models.CASCADE, verbose_name="Заголовок", related_name='pics')
+    picturies = models.ImageField(verbose_name="Картинка", upload_to='img', blank=True)
 
     def __str__(self):
-        return self.title
+        return f'{self.numb} {self.title}'
+
+    class Meta:
+        verbose_name = 'Картинка'
+        verbose_name_plural = 'Картинки'
+
+    @property
+    def photo_preview(self):
+        if self.picturies:
+            return mark_safe('<img src="{}" width="100" height="100" />'.format(self.picturies.url))
+        return ""
