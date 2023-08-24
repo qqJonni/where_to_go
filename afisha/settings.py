@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'places',
     'ckeditor',
     'ckeditor_uploader',
+    'endpoint',
 ]
 
 MIDDLEWARE = [

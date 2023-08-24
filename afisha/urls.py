@@ -23,7 +23,9 @@ from django.conf import settings
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", index, name="index"),
+    path('places/', include('endpoint.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+
 ]
 
 if settings.DEBUG:

@@ -17,7 +17,7 @@ class ImageInline(admin.TabularInline):
 @admin.register(PlaceName)
 class PostAdmin(admin.ModelAdmin):
     fields = ["title", "description_short", "description_long", "lat", "lon", "point_lon", "point_lat", "slug"]
-    list_display = ['title']
+    list_display = ['pk', 'title']
     inlines = [ImageInline, ]
 
 

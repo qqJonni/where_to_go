@@ -40,7 +40,8 @@
     }
   </style>
 
-    {{ places_posts|json_script:"places-geojson" }}
+  {{ places_posts|json_script:"places-geojson"|safe }}
+
 
   <script id="app-template" type="text/template">
     <div v-bind:class="{% verbatim %}{'sidebar-content': 1, 'bg-white': selectedPlace, 'bg-secondary': !selectedPlace}{% endverbatim %}">
@@ -48,21 +49,15 @@
         <img class="d-block select-place-prompt mb-4" src="{% static 'hand-pointer-regular.svg' %}" alt="Select place">
         <h4>Выберите место на карте</h4>
       </div>
-
       <div class="align-items-center justify-content-center d-flex" v-if="loading" style="height: 100%;">
         <div class="spinner-grow text-light" style="width: 3rem; height: 3rem;" role="status">
           <span class="sr-only">Loading...</span>
         </div>
       </div>
-
       <div class="place-description" v-if="selectedPlace">
-
         <img v-if="mainPhotoSrc" v-bind:src="mainPhotoSrc" class="d-block shadow mb-3 rounded" v-bind:alt="selectedPlace.title">
-
         <h5 class="mb-3">{% verbatim %}{{ selectedPlace.title }}{% endverbatim %}</h5>
-
         <p>{% verbatim %}{{ selectedPlace.short_description }}{% endverbatim %}</p>
-
         <div id="place-photos" class="carousel slide mb-3 shadow" data-ride="carousel" data-interval="5000">
           <ol class="carousel-indicators">
             <template v-for="(img, index) in carouselImgs" :key="img">
@@ -87,7 +82,6 @@
             </a>
           </template>
         </div>
-
         <div v-html="selectedPlace.long_description"></div>
       </div>
     </div>
@@ -112,7 +106,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js" integrity="sha256-ngFW3UnAN0Tnm76mDuu7uUtYEcG3G5H1+zioJw3t+68=" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@ansur/leaflet-pulse-icon@0.1.1/dist/L.Icon.Pulse.js"></script>
 
-  <script src="../static/leaflet-sidebar.js"></script>
+  <script src="../../static/leaflet-sidebar.js"></script>
 
   <script>
     var map = L.map('map');
