@@ -1,13 +1,13 @@
 from django.db import models
 from django.utils.safestring import mark_safe
-from ckeditor_uploader.fields import RichTextUploadingField
+from tinymce import models as tinymce_models
 from afisha import settings
 
 
 class PlaceName(models.Model):
     title = models.CharField('Заголовок', max_length=200)
     description_short = models.TextField('Короткое описание')
-    description_long = models.TextField(verbose_name='Длинное описание', blank=True, null=True)
+    description_long = tinymce_models.HTMLField('Полное описание')
     lat = models.FloatField(verbose_name="Широта")
     lon = models.FloatField(verbose_name="Долгота")
     point_lon = models.FloatField(verbose_name="Долгота точки", blank=True, null=True)

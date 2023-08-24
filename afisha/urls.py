@@ -25,6 +25,7 @@ urlpatterns = [
     path("", index, name="index"),
     path('places/', include('endpoint.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('tinymce/', include('tinymce.urls')),
 
 ]
 
