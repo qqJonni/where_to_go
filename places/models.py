@@ -37,7 +37,7 @@ class Image(models.Model):
     @property
     def photo_preview(self):
         if self.picturies:
-            return mark_safe('<img src="{}" width="100" height="100" />'.format(self.picturies.url))
+            return mark_safe('<img src="{}" height="200" />'.format(self.picturies.url))
         return ""
 
     @property
