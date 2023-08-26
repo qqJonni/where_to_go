@@ -3,7 +3,7 @@
 Сайт показывает на карте интересные для посещения места.
 
 ### Посмотреть пример сайта на:
-https://kasper6024.pythonanywhere.com
+http://qqjonni.pythonanywhere.com
 
 ![скрин](https://github.com/devmanorg/where-to-go-frontend/raw/master/.gitbook/assets/site.png)
 
