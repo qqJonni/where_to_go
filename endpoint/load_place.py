@@ -44,14 +44,14 @@ def upload_data_to_db(url):
         img_names.append(img_name)
         download_img(img_url, img_name, img_path)
     title = json_data["title"]
-    description_short = json_data["description_short"]
-    description_long = json_data["description_long"]
+    short_description = json_data["short_description"]
+    long_description = json_data["long_description"]
     lng = json_data["coordinates"]["lng"]
     lat = json_data["coordinates"]["lat"]
     post = Post.objects.create(
         title=title,
-        description_short=description_short,
-        description_long=description_long,
+        short_description=short_description,
+        long_description=long_description,
         lat=lat,
         lon=lng,
         point_lon=lng,
