@@ -10,9 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from pathlib import Path
 import os
 import environ
+
+from pathlib import Path
+
 
 env = environ.Env(
     # set casting, default value

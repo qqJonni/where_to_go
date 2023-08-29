@@ -16,9 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from afisha.views import index
+
 from django.conf.urls.static import static
 from django.conf import settings
+
+from afisha.views import index
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -26,7 +29,6 @@ urlpatterns = [
     path('places/', include('endpoint.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('tinymce/', include('tinymce.urls')),
-
 ]
 
 if settings.DEBUG:

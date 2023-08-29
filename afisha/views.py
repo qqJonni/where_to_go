@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from places.models import PlaceName, Image
-import json
 from django.urls import reverse
+import json
+
+from places.models import PlaceName, Image
+
+
 
 
 def serialize_post(post):
