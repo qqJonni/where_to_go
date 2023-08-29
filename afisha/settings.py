@@ -16,10 +16,8 @@ import environ
 
 env = environ.Env(
     # set casting, default value
-    DEBUG=(bool),
     SECRET_KEY=(str),
     DOMAIN_NAME=(str),
-    DATABASE_NAME=(str),
 
 )
 
@@ -37,7 +35,7 @@ environ.Env.read_env(BASE_DIR/'.env')
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -98,7 +96,7 @@ WSGI_APPLICATION = "afisha.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": env('DATABASE_NAME'),
+        "NAME": 'db.sqlite3',
     }
 }
 
