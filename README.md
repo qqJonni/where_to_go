@@ -10,7 +10,7 @@ http://qqjonni.pythonanywhere.com
 
 ### Как установить
 
-* Скачать [этот script](https://github.com/miazigoo/where_to_go)
+* Скачать [этот script](https://github.com/qqJonni/Yandex_Afisha)
 
 **Python 3.11 уже должен быть установлен**. 
 Используйте `pip` (или `pip3`, если возникает конфликт с Python2) для установки зависимостей:

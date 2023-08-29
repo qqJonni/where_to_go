@@ -17,8 +17,6 @@ import environ
 env = environ.Env(
     # set casting, default value
     SECRET_KEY=(str),
-    DOMAIN_NAME=(str),
-
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,7 +37,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-DOMAIN_NAME = env('DOMAIN_NAME')
+DOMAIN_NAME = '127.0.0.1:8000'
 
 
 # Application definition
@@ -52,8 +50,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'places',
-    'ckeditor',
-    'ckeditor_uploader',
     'endpoint',
     "adminsortable2",
     'tinymce',
@@ -143,11 +139,5 @@ STATICFILES_DIRS = (
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-CKEDITOR_UPLOAD_PATH = 'uploads/'
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'None'
-    }
-}
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
