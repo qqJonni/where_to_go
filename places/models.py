@@ -8,8 +8,8 @@ from afisha import settings
 
 class PlaceName(models.Model):
     title = models.CharField('Заголовок', max_length=200)
-    short_description = models.TextField('Короткое описание', blank=True, null=True)
-    long_description = tinymce_models.HTMLField('Полное описание', blank=True, null=True)
+    short_description = models.TextField('Короткое описание', blank=True)
+    long_description = tinymce_models.HTMLField('Полное описание', blank=True)
     lat = models.FloatField(verbose_name="Широта")
     lon = models.FloatField(verbose_name="Долгота")
     point_lon = models.FloatField(verbose_name="Долгота точки", blank=True, null=True)
