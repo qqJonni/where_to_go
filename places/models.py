@@ -10,14 +10,12 @@ class PlaceName(models.Model):
     title = models.CharField('Заголовок', max_length=200)
     short_description = models.TextField('Короткое описание', blank=True)
     long_description = tinymce_models.HTMLField('Полное описание', blank=True)
-    lat = models.FloatField(verbose_name="Широта")
-    lon = models.FloatField(verbose_name="Долгота")
     point_lon = models.FloatField(verbose_name="Долгота точки", blank=True, null=True)
     point_lat = models.FloatField(verbose_name="Широта точки", blank=True, null=True)
     slug = models.SlugField('Название в виде url', max_length=200, blank=True, null=True)
 
     def __str__(self):
-        return f'{self.title}'
+        return self.title
 
     class Meta:
         verbose_name = 'Пост'
@@ -25,12 +23,12 @@ class PlaceName(models.Model):
 
 
 class Image(models.Model):
-    numb = models.IntegerField(verbose_name="Порядковый номер:", db_index=True)
-    title = models.ForeignKey(PlaceName, on_delete=models.CASCADE, verbose_name="Заголовок", related_name='pics')
-    picturies = models.ImageField(verbose_name="Картинка", upload_to='img', blank=True)
+    numb = models.IntegerField(verbose_name="Порядковый номер:", null=True)
+    place_name = models.ForeignKey(PlaceName, on_delete=models.CASCADE, verbose_name="Заголовок", related_name='pics')
+    pictures = models.ImageField(verbose_name="Картинка", upload_to='img', blank=True)
 
     def __str__(self):
-        return f'{self.numb} {self.title}'
+        return f'{self.numb} {self.place_name}'
 
     class Meta:
         verbose_name = 'Картинка'
@@ -38,11 +36,7 @@ class Image(models.Model):
         ordering = ['numb']
 
     @property
-    def photo_preview(self):
-        if self.picturies:
-            return format_html('<img src="{}" height="200" />'.format(self.picturies.url))
+    def preview_photo(self):
+        if self.pictures:
+            return format_html('<img src="{}" style="max-width: 200px; max-height: 200px;"/>', self.pictures.url)
         return ""
-
-    @property
-    def get_absolute_image_url(self):
-        return "{0}{1}".format(settings.MEDIA_URL, self.picturies.url)
