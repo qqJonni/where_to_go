@@ -18,6 +18,17 @@ http://qqjonni.pythonanywhere.com
 pip install -r requirements.txt
 ```
 
+**Создаём и активируем виртуальное окружение:**
+
+Для MacOS: Обычно окружение создается командой python3 -m venv имя_окружения; source имя_окружения/bin/activate
+
+Для Windows: C:\> имя_окружения\Scripts\activate.bat
+
+
+
+Создать в корне проекта файл .env и указать SECRET KEY
+и значение DEBUG=False
+
 Создать миграции:
 ```properties
 python manage.py makemigrations
