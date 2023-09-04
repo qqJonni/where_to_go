@@ -52,14 +52,14 @@ def upload_data_to_db(url):
         title=title,
         short_description=short_description,
         long_description=long_description,
-        point_lon=lng,
-        point_lat=lat
+        longitude=lng,
+        latitude=lat
     )
     for img in img_names:
         img_upload = Image.objects.create(place_name=post)
         with open(f'{img_path}/{img}', 'rb') as f:
             file = f.read()
-            img_upload.pictures.save(img, ContentFile(file), save=True)
+            img_upload.picture.save(img, ContentFile(file), save=True)
     return 'OK'
 
 

@@ -26,7 +26,7 @@ from afisha.views import index
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", index, name="index"),
-    path('places/', include('endpoint.urls')),
+    path('places/', include('places.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('tinymce/', include('tinymce.urls')),
 ]
