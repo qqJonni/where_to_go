@@ -89,6 +89,47 @@
 
 </head>
 <body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">Where to go</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="products.html">Каталог <i class="fas fa-shopping-bag"></i> </a>#}
+{#                </li>#}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:login' %}">Войти <i class="fas fa-sign-in-alt"></i></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user-circle"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="dropdown-item" href="users/profile.html">Профиль</a>
+                        </li>
+                        <li><a class="dropdown-item" href="orders/orders.html">Заказы</a></li>
+                        <li><a class="dropdown-item" href="#">Админ-панель</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                Выйти
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
   <div id="sidebar">
     <div id="sidebar-app"></div>
   </div>
@@ -110,7 +151,7 @@
 
   <script>
     var map = L.map('map');
-    map.setView([55.753989, 37.623191], 11);
+    map.setView([58.0105, 56.2502], 11);
 
     L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(map);
 
@@ -121,27 +162,27 @@
     map.addControl(sidebar);
 
     // FIXME should be hidden in production mode
-    L.control.custom({
-      position: 'bottomleft',
-      content: `
-        <label>
-            <input name="debug" type="checkbox" ${log.getLevel()<=1 && 'checked'}/>
-            Отладка
-        </label>`,
-      style: {
-        padding: '10px',
-        background: 'rgba(255, 255, 255, 0.7)',
-      },
-      events: {
-        click: event => {
-          if (event.target.name == 'debug'){
-            let level = event.target.checked && 'debug' || 'warn';
-            log.setLevel(level);
-            console.log(`Set log level: ${level}`)
-          }
-        },
-      }
-    }).addTo(map);
+    {#L.control.custom({#}
+    {#  position: 'bottomleft',#}
+    {#  content: `#}
+    {#    <label>#}
+    {#        <input name="debug" type="checkbox" ${log.getLevel()<=1 && 'checked'}/>#}
+    {#        Отладка#}
+    {#    </label>`,#}
+    {#  style: {#}
+    {#    padding: '10px',#}
+    {#    background: 'rgba(255, 255, 255, 0.7)',#}
+    {#  },#}
+    {#  events: {#}
+    {#    click: event => {#}
+    {#      if (event.target.name == 'debug'){#}
+    {#        let level = event.target.checked && 'debug' || 'warn';#}
+    {#        log.setLevel(level);#}
+    {#        console.log(`Set log level: ${level}`)#}
+    {#      }#}
+    {#    },#}
+    {#  }#}
+    {#}).addTo(map);#}
 
     function loadJSON(elementId){
       let element = document.getElementById(elementId);

@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'places',
+    'users',
     "adminsortable2",
     'tinymce',
 ]
@@ -142,3 +143,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+#Users
+
+AUTH_USER_MODEL = 'users.User'
