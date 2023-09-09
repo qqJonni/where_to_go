@@ -160,11 +160,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js" integrity="sha256-ngFW3UnAN0Tnm76mDuu7uUtYEcG3G5H1+zioJw3t+68=" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@ansur/leaflet-pulse-icon@0.1.1/dist/L.Icon.Pulse.js"></script>
 
-  <script src="../../static/leaflet-sidebar.js"></script>
+  <script src="{% static 'leaflet-sidebar.js' %}"></script>
 
   <script>
     var map = L.map('map');
-    map.setView([58.0105, 56.2502], 11);
+    map.setView([58.004937, 56.250236], 13);
 
     L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(map);
 
@@ -173,6 +173,18 @@
       position: 'right'
     });
     map.addControl(sidebar);
+
+    var popup = L.popup();
+
+    function onMapClick(e) {
+    var link = "{% url 'users:profile' %}"; // замените ссылку на нужную
+    popup
+        .setLatLng(e.latlng)
+        .setContent("Координаты выбранной точки: " + e.latlng.toString() + "<br>{% if user.is_authenticated %}<a href='" + link +  "'>Добавить место</a>{% endif %}")
+        .openOn(map);
+}
+
+    map.on('click', onMapClick);
 
     // FIXME should be hidden in production mode
     {#L.control.custom({#}
