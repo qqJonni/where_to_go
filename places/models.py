@@ -1,9 +1,6 @@
 from django.db import models
-from django.utils.safestring import mark_safe
 from django.utils.html import format_html
 from tinymce import models as tinymce_models
-
-from afisha import settings
 
 
 class PlaceName(models.Model):

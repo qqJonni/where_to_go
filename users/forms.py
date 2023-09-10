@@ -1,6 +1,8 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 from users.models import User
 from django import forms
+from places.models import PlaceName, Image
+from tinymce.widgets import TinyMCE
 
 
 class UserLoginForm(AuthenticationForm):
@@ -43,3 +45,24 @@ class UserProfileForm(UserChangeForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'image', 'username', 'email')
+
+
+class UserPlaceNameForm(forms.ModelForm):
+    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4'}))
+    short_description = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4'}))
+    long_description = forms.CharField(widget=TinyMCE())
+    longitude = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4'}))
+    latitude = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4'}))
+
+    class Meta:
+        model = PlaceName
+        fields = ('title', 'short_description', 'long_description', 'longitude', 'latitude')
+
+
+class UserImageForm(forms.ModelForm):
+    picture = forms.ImageField(widget=forms.FileInput(attrs={'class': 'custom-file-input'}), required=False)
+
+    class Meta:
+        model = Image
+        fields = ('picture',)
+

@@ -1,6 +1,5 @@
 from django.contrib import admin
 from adminsortable2.admin import SortableAdminBase, SortableInlineAdminMixin
-from adminsortable.utils import get_is_sortable
 
 from places.models import PlaceName, Image
 
@@ -18,7 +17,7 @@ class ImageInline(SortableInlineAdminMixin, admin.TabularInline):
 
 @admin.register(PlaceName)
 class PostAdmin(SortableAdminBase, admin.ModelAdmin):
-    fields = ["title", "short_description", "long_description", "longitude", "latitude", "slug"]
+    fields = ["title", "short_description", "long_description", "longitude", "latitude"]
     list_display = ['pk', 'title']
     inlines = [ImageInline, ]
 

@@ -1,7 +1,8 @@
 from django.shortcuts import render, HttpResponseRedirect
-from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm, UserPlaceNameForm, UserImageForm
 from django.contrib import auth, messages
 from django.urls import reverse
+from places.models import PlaceName
 
 
 def login(request):
@@ -16,7 +17,9 @@ def login(request):
                 return HttpResponseRedirect(reverse('index'))
     else:
         form = UserLoginForm()
-    context = {'form': form}
+    context = {'form': form,
+               'places:': PlaceName.objects.all()
+        }
     return render(request, 'users/login.html', context)
 
 
@@ -35,16 +38,49 @@ def registration(request):
 
 def profile(request):
     if request.method == 'POST':
+        form_place = UserPlaceNameForm()
+        form_image = UserImageForm()
         form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
+            form_place.save()
+            form_image.save()
             return HttpResponseRedirect(reverse('users:profile'))
     else:
         form = UserProfileForm(instance=request.user)
-    context = {'form': form}
+        form_place = UserProfileForm(instance=request.user)
+        form_image = UserProfileForm(instance=request.user)
+    context = {'form': form, 'form_place': form_place, 'form_image': form_image}
     return render(request, 'users/profile.html', context)
+
+
+# def add_place(request):
+#     if request.method == 'POST':
+#         form_place = UserPlaceNameForm()
+#         if form_place.is_valid():
+#             form_place.save()
+#             return HttpResponseRedirect(reverse('users:profile'))
+#     else:
+#         form_place = UserProfileForm(instance=request.user)
+#     context = {'form': form_place}
+#     return render(request, 'users/profile.html', context)
+#
+#
+# def add_image(request):
+#     if request.method == 'POST':
+#         form_image = UserImageForm()
+#         if form_image.is_valid():
+#             form_image.save()
+#             return HttpResponseRedirect(reverse('users:profile'))
+#     else:
+#         form_image = UserProfileForm(instance=request.user)
+#     context = {'form': form_image}
+#     return render(request, 'users/profile.html', context)
 
 
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('index'))
+
+
+
